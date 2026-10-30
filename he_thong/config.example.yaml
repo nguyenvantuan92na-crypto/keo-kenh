@@ -1,0 +1,84 @@
+# ============================================================
+#  CẤU HÌNH TOOL KÉO KÊNH  (copy file này thành config.yaml)
+# ============================================================
+
+# Ngôn ngữ giao diện YouTube Studio của tài khoản: vi hoặc en
+ui_language: vi
+
+# Trình duyệt dùng để chạy: coccoc hoặc chrome
+browser: coccoc
+browser_path: ""           # để trống = tự tìm; hoặc dán đường dẫn file browser.exe / chrome.exe
+
+# false = hiện trình duyệt để bạn quan sát (nên để false khi mới dùng)
+headless: false
+slow_mo_ms: 200            # làm chậm mỗi thao tác (ms) cho giống người thật
+delay_range_sec: [2, 5]    # nghỉ ngẫu nhiên giữa các bước
+
+# ---------------- KÊNH MẠNH (kênh dùng để kéo) ----------------
+strong_channel:
+  name: "Kênh mạnh của tôi"
+  channel_id: "UCxxxxxxxxxxxxxxxxxxxxxx"   # lấy trong YouTube Studio > Tùy chỉnh > Thông tin cơ bản
+  profile_dir: "profiles/strong"           # nơi lưu phiên đăng nhập (cookie)
+  cookies_file: ""                         # tùy chọn: file cookies .json xuất từ trình duyệt
+
+# ---------------- KÊNH YẾU (kênh cần kéo) - 5 hạng mục ----------------
+weak_channel:
+  url: "https://www.youtube.com/@tenkenhyeu"          # 1. Link kênh
+  name: "Tên kênh yếu"                                # 2. Tên kênh
+  channel_id: "UCyyyyyyyyyyyyyyyyyyyyyy"
+  profile_dir: "profiles/weak"
+  cookies_file: ""
+  videos:                                             # 3. video của kênh cần kéo (bao nhiêu cũng được)
+    - "https://www.youtube.com/watch?v=VIDEO_1"
+    - "https://www.youtube.com/watch?v=VIDEO_2"
+    - "https://www.youtube.com/watch?v=VIDEO_3"
+  playlist: "https://www.youtube.com/playlist?list=PLxxxxxxxx"   # 4. Danh sách phát
+  pin_comment: |                                      # 5. Bình luận ghim
+    🔥 Xem thêm video mới tại kênh Tên kênh yếu: https://www.youtube.com/@tenkenhyeu
+
+# ---------------- TÙY CHỈNH KÊNH MẠNH (bước 3) ----------------
+strong_setup:
+  profile_link_title: ""     # Hồ sơ > Đường liên kết: tiêu đề (trống = tên kênh cần kéo)
+  profile_link_url: ""       # Hồ sơ > Đường liên kết: URL (dán link video cần kéo; trống = link kênh cần kéo)
+  trailer_video: ""          # Thẻ Trang chủ > Video giới thiệu kênh cho người chưa đăng ký (link video)
+  featured_video: ""         # Thẻ Trang chủ > Video nổi bật dành cho người đăng ký cũ (link video)
+  post_source: newest        # newest = tự lấy video mới nhất của kênh mạnh; links = theo post_videos
+  post_videos: []            # Bài đăng có video: mỗi link = 1 bài đăng (khi post_source: links)
+  post_text: ""              # nội dung chữ của bài đăng (không bắt buộc)
+  do_profile_link: true
+  do_trailer: true
+  do_featured: true
+  do_playlist: true
+  do_featured_channel: true
+  do_posts: true
+
+# ---------------- LỌC VIDEO ĐANG CÓ VIEW ----------------
+scan:
+  min_views_per_hour: 20     # chỉ lấy video từ 20 view / 60 phút trở lên
+
+# ---------------- VIDEO ĐƯA VÀO MÀN HÌNH KẾT THÚC & THẺ ----------------
+# weak       = các video của kênh cần kéo (mục videos ở trên)
+# own_newest = video mới nhất của chính kênh mạnh (đầu danh sách trong hộp chọn)
+video_source: weak
+
+# ---------------- MÀN HÌNH KẾT THÚC ----------------
+end_screen:
+  replace_existing: false    # false = video đã có màn hình kết thúc thì BỎ QUA, không xóa
+
+# ---------------- THẺ ----------------
+cards:
+  replace_existing: false    # false = video đã có thẻ thì BỎ QUA, không xóa
+  start_minute: 0            # thẻ đầu tiên ở phút 0
+  interval_minutes: 5        # 3 thẻ video, cách nhau 5 phút (0, 5, 10)
+
+# ---------------- TÍNH NĂNG CỘNG TÁC ----------------
+collab:
+  enabled: true
+
+# ---------------- BÁO CÁO ----------------
+tracker:
+  excel_file: "ket_qua_keo_kenh.xlsx"
+  google_sheet:
+    enabled: false
+    credentials_json: "service_account.json"   # file khóa Service Account của Google
+    sheet_url: "https://docs.google.com/spreadsheets/d/xxxxxxxx"

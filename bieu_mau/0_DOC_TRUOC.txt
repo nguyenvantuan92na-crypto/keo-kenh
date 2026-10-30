@@ -1,0 +1,13 @@
+﻿===== CHỌN BIỂU MẪU =====
+Kéo view sang 1 kênh KHÁC          → 1_KEO_CHO_KENH_KHAC.txt
+Kênh tự đẩy view cho CHÍNH NÓ      → 2_KEO_CHO_CHINH_KENH.txt
+Mẫu đã điền sẵn để nhìn theo       → VI_DU_...
+
+===== CÁCH DÙNG =====
+1. Copy file trống, đổi tên theo kênh, mở bằng Notepad.
+2. Điền sau dấu = , lưu (Ctrl+S).
+3. Tool → Thông tin kênh → Thêm kênh mới → Nạp biểu mẫu → Lưu thông tin.
+
+===== LẤY CHO ĐÚNG =====
+Link video : mở video trên YouTube → Chia sẻ → Sao chép  (vd: https://youtu.be/AbCdEfGhIjK)
+ID kênh    : bắt đầu bằng UC. Không biết thì để trống, đăng nhập trong tool sẽ tự điền.

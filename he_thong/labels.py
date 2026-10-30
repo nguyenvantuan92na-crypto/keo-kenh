@@ -1,0 +1,157 @@
+"""
+Chữ hiển thị trên giao diện YouTube / YouTube Studio mà tool dùng để tìm nút.
+Khi YouTube đổi giao diện và tool báo "Không tìm thấy nút ...", chỉ cần sửa
+hoặc thêm chữ mới vào đây (mỗi mục là danh sách các cách viết có thể gặp).
+"""
+import re
+
+LABELS = {
+    "vi": {
+        "end_screen": ["Màn hình kết thúc"],
+        "cards": ["^Thẻ$", "Thẻ"],
+        "add_element": ["^\\+? ?Thành phần$", "Thành phần", "Thêm phần tử", "Phần tử"],
+        "type_video": ["^\\s*Video\\s*$"],
+        "type_playlist": ["^\\s*Danh sách phát\\s*$"],
+        "type_channel": ["^\\s*Kênh\\s*$"],
+        "choose_specific_video": ["Chọn một video cụ thể", "Chọn video cụ thể"],
+        "discard": ["Hủy thay đổi", "Huỷ thay đổi"],
+        "template_2v": ["^\\s*2 video\\s*$", "^\\s*2 video, 1 đăng ký\\s*$", "^\\s*2 video"],
+        "auto_video": ["gần đây nhất", "Phù hợp nhất"],
+        "video_prefix": ["Video:"],
+        "add_card": ["^\\s*\\+?\\s*Thẻ\\s*$", "Thêm thẻ"],
+        "select": ["^\\s*Chọn\\s*$", "^\\s*Xong\\s*$"],
+        "auto_video_bar": ["^\\s*Video:\\s*(Video đã tải lên gần đây nhất|Phù hợp nhất với người xem)\\s*$"],
+        "any_video_tab": ["Video bất kỳ trên YouTube", "video bất kỳ"],
+        "confirm_discard": ["^Bỏ$", "Loại bỏ", "Hủy bỏ", "^Hủy thay đổi$", "Rời khỏi"],
+        "search": ["Tìm kiếm", "Tìm"],
+        "message": ["Thông điệp", "Thông báo tùy chỉnh"],
+        "teaser": ["Văn bản giới thiệu", "Dòng giới thiệu"],
+        "save": ["^Lưu$", "Lưu"],
+        "publish": ["Xuất bản"],
+        "delete": ["Xóa", "Xoá"],
+        "pin": ["Ghim"],
+        "confirm_pin": ["^Ghim$"],
+        "confirm_delete": ["^Xóa$", "^Xoá$"],
+        "comment_box": ["Viết bình luận", "Thêm bình luận"],
+        "comment_submit": ["Bình luận"],
+        "add_link": ["Thêm đường liên kết"],
+        "link_title_ph": ["Nhập tiêu đề"],
+        "link_url_ph": ["Nhập URL"],
+        "link_title": ["Tiêu đề của đường liên kết", "Tiêu đề đường liên kết"],
+        "link_url": ["^URL \\(bắt buộc\\)", "^URL$"],
+        "returning_subscribers": ["người đăng ký cũ", "người đăng ký quay lại", "người đăng ký hiện tại",
+                                  "Nội dung nổi bật cho người đăng ký", "Video nổi bật"],
+        "home_tab": ["^Thẻ Trang chủ$", "Thẻ Trang chủ"],
+        "any_on_youtube": ["bất kỳ trên YouTube", "YouTube bất kỳ", "bất kỳ"],
+        "section_title": ["Section title", "Tiêu đề phần", "Tiêu đề mục"],
+        "close": ["^Đóng$", "Đóng"],
+        "add_section": ["Thêm phần", "Thêm mục"],
+        "single_playlist": ["Danh sách phát đơn"],
+        "featured_channels": ["Kênh nổi bật"],
+        "add": ["^Thêm$", "Thêm"],
+        "done": ["^Xong$", "Xong"],
+        "collaborate": ["Cộng tác", "Mời cộng tác viên", "Người cộng tác", "Cộng tác viên"],
+        "invite_collab": ["Quản lý cộng tác viên", "Quản lý cộng sự", "Mời cộng sự", "Mời cộng tác viên", "Mời người cộng tác", "Thêm cộng sự", "Thêm cộng tác viên", "^\\s*Mời\\s*$"],
+        "send_invite": ["Tạo đường liên kết", "^\\s*Gửi lời mời\\s*$", "^\\s*Mời\\s*$", "^\\s*Gửi\\s*$", "^\\s*Xong\\s*$", "^\\s*Thêm\\s*$",
+                        "^\\s*Lưu\\s*$"],
+        "collab_invite_text": ["lời mời cộng tác", "mời bạn cộng tác", "lời mời cộng sự", "cộng tác"],
+        "show_more": ["^\\s*Hiện thêm", "^\\s*Xem thêm\\s*$", "^\\s*Hiển thị thêm"],
+        "copy_link": ["Sao chép đường liên kết", "Sao chép"],
+        "accept": ["Chấp nhận", "Đồng ý", "Tham gia", "Bắt đầu cộng tác"],
+        "collab_success": ["cộng tác thành công", "đã chấp nhận"],
+        "realtime": ["Thời gian thực"],
+        "sec_trailer": ["Video giới thiệu kênh cho người chưa đăng ký", "giới thiệu kênh cho người chưa đăng ký",
+                        "người chưa đăng ký", "^\\s*Video giới thiệu kênh\\s*$", "^\\s*Video giới thiệu\\s*$",
+                        "Đoạn giới thiệu kênh"],
+        "sec_featured": ["Video nổi bật dành cho người đăng ký cũ", "nổi bật dành cho người đăng ký cũ",
+                         "người đăng ký cũ", "người đăng ký quay lại"],
+        "change_video": ["Thay đổi video", "Đổi video", "Thay video", "Chọn video khác", "Chọn video", "Chỉnh sửa", "Sửa"],
+        "more_actions": ["^Tùy chọn$", "Tác vụ", "Thao tác khác", "Tùy chọn khác", "Thêm tác vụ", "Hành động", "Thao tác"],
+        "post_submit": ["^\\s*Đăng\\s*$"],
+        "post_cancel": ["^\\s*Hủy\\s*$", "^\\s*Huỷ\\s*$"],
+        "post_box": ["Bạn đang nghĩ gì", "Chia sẻ suy nghĩ", "Tạo bài đăng", "Viết gì đó"],
+        "url_tab": ["^\\s*URL\\s*$"],
+    },
+    "en": {
+        "end_screen": ["End screen"],
+        "cards": ["^Cards$", "Cards"],
+        "add_element": ["^\\+? ?Element$", "Element", "Add element"],
+        "type_video": ["^\\s*Video\\s*$"],
+        "type_playlist": ["^\\s*Playlist\\s*$"],
+        "type_channel": ["^\\s*Channel\\s*$"],
+        "choose_specific_video": ["Choose a specific video", "Choose specific video"],
+        "discard": ["Discard changes"],
+        "template_2v": ["^\\s*2 videos\\s*$", "^\\s*2 videos, 1 subscribe\\s*$", "^\\s*2 videos"],
+        "auto_video": ["Most recent upload", "Best for viewer"],
+        "video_prefix": ["Video:"],
+        "add_card": ["^\\s*\\+?\\s*Card\\s*$", "Add card"],
+        "select": ["^\\s*Select\\s*$", "^\\s*Done\\s*$"],
+        "auto_video_bar": ["^\\s*Video:\\s*(Most recent upload|Best for viewer)\\s*$"],
+        "any_video_tab": ["Any YouTube video", "any video"],
+        "confirm_discard": ["^Discard$", "Leave"],
+        "search": ["Search"],
+        "message": ["Message", "Custom message"],
+        "teaser": ["Teaser text"],
+        "save": ["^Save$", "Save"],
+        "publish": ["Publish"],
+        "delete": ["Delete", "Remove"],
+        "pin": ["Pin"],
+        "confirm_pin": ["^Pin$"],
+        "confirm_delete": ["^Delete$"],
+        "comment_box": ["Add a comment"],
+        "comment_submit": ["^Comment$"],
+        "add_link": ["Add link"],
+        "link_title_ph": ["Enter title", "Enter a title"],
+        "link_url_ph": ["Enter URL", "Enter a URL"],
+        "link_title": ["Link title"],
+        "link_url": ["^URL \\(required\\)", "^URL$"],
+        "returning_subscribers": ["returning subscribers"],
+        "home_tab": ["^Home tab$", "Home tab"],
+        "any_on_youtube": ["any .*on YouTube", "on YouTube", "Any YouTube"],
+        "section_title": ["Section title"],
+        "close": ["^Close$", "Close"],
+        "add_section": ["Add section"],
+        "single_playlist": ["Single playlist"],
+        "featured_channels": ["Featured channels"],
+        "add": ["^Add$", "Add"],
+        "done": ["^Done$", "Done"],
+        "collaborate": ["Collaborat", "Invite collaborator", "Add collaborator"],
+        "invite_collab": ["Manage collaborators", "Invite collaborator", "Add collaborator", "^\\s*Invite\\s*$"],
+        "send_invite": ["Create link", "^\\s*Send invite\\s*$", "^\\s*Invite\\s*$", "^\\s*Send\\s*$", "^\\s*Done\\s*$", "^\\s*Add\\s*$",
+                        "^\\s*Save\\s*$"],
+        "collab_invite_text": ["collaboration invite", "invited you to collaborate", "collaborat"],
+        "show_more": ["^\\s*Show more", "^\\s*Show advanced"],
+        "copy_link": ["Copy link", "Copy"],
+        "accept": ["Accept", "Join", "Agree", "Start collaborating"],
+        "collab_success": ["collaboration", "accepted"],
+        "realtime": ["Realtime"],
+        "sec_trailer": ["Channel trailer for people who haven.t subscribed", "haven.t subscribed",
+                        "^\\s*Channel trailer\\s*$"],
+        "sec_featured": ["Featured video for returning subscribers", "returning subscribers"],
+        "change_video": ["Change video", "Replace video", "Edit"],
+        "more_actions": ["^Options$", "More actions", "Action menu", "Options", "More"],
+        "post_submit": ["^\\s*Post\\s*$"],
+        "post_cancel": ["^\\s*Cancel\\s*$"],
+        "post_box": ["What.s on your mind", "Share", "Create post"],
+        "url_tab": ["^\\s*URL\\s*$"],
+    },
+}
+
+_lang = "vi"
+
+
+def set_language(lang: str):
+    global _lang
+    if lang not in LABELS:
+        raise ValueError(f"ui_language phải là một trong: {list(LABELS)}")
+    _lang = lang
+
+
+def L(key: str) -> re.Pattern:
+    """Trả về regex khớp với mọi cách viết của nhãn `key` – ngôn ngữ đã chọn trước, rồi các ngôn ngữ khác
+    (YouTube Studio có thể hiện tiếng Anh dù đã chọn tiếng Việt và ngược lại)."""
+    variants = list(LABELS[_lang].get(key) or [])
+    for lang, table in LABELS.items():
+        if lang != _lang:
+            variants += [v for v in table.get(key, []) if v not in variants]
+    return re.compile("|".join(f"(?:{v})" for v in variants), re.IGNORECASE)

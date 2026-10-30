@@ -1,0 +1,14 @@
+﻿===== KÉO CHO CHÍNH KÊNH =====
+Điền sau dấu = , lưu (Ctrl+S), vào tool bấm "Nạp biểu mẫu".
+Không biết ID kênh? Để trống – đăng nhập trong tool sẽ tự điền.
+
+1. Tên kênh = Kênh Của Tôi
+2. ID kênh = UCqWeRtYuIoPaSdFgHjKlZxC
+3. Đẩy video nào? = 1
+   (1 = video mới nhất · 2 = video ít view nhất · 3 = các link ở mục 4)
+
+4. Link video (chỉ khi chọn 3) – mỗi dòng 1 link:
+
+
+
+5. Bình luận ghim (để trống thì tool tự viết):

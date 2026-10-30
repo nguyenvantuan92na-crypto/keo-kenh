@@ -1,0 +1,10 @@
+{
+ "version": "2026.10.30.1",
+ "notes": [
+  "Thêm nút Cập nhật: bấm là tool tự tải bản mới từ GitHub",
+  "Chọn trình duyệt đăng nhập cho từng kênh: Cốc Cốc / Chrome, hồ sơ riêng hoặc ẩn danh",
+  "Màn hình kết thúc & Thẻ: gắn được danh sách phát",
+  "Bài đăng: nút Tool tự soạn (đúng ngôn ngữ + chủ đề kênh)",
+  "Giao diện GPM gọn hơn"
+ ]
+}

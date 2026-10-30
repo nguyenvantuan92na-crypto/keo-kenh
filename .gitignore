@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+python/
+pt_settings.json
+config.yaml
+profiles/
+*.xlsx
+*.db
+logs/

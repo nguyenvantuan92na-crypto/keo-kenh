@@ -1,0 +1,21 @@
+﻿===== KÉO CHO KÊNH KHÁC =====
+Điền sau dấu = , lưu (Ctrl+S), vào tool bấm "Nạp biểu mẫu".
+Không biết ID kênh? Để trống – đăng nhập trong tool sẽ tự điền.
+
+KÊNH MẠNH (kênh nhiều view)
+1. Tên kênh mạnh = Kênh Mạnh Mẫu
+2. ID kênh mạnh = UCzYxWvUtSrQpOnMlKjIhGfE
+
+KÊNH CẦN KÉO
+3. Tên kênh cần kéo = Kênh Cần Kéo
+4. ID kênh cần kéo = UCaBcDeFgHiJkLmNoPqRsTuV
+5. Link kênh cần kéo = https://www.youtube.com/@KenhCanKeo
+6. Link danh sách phát (không bắt buộc) = https://www.youtube.com/playlist?list=PLaBcDeFgHiJkLmNoPqRsTuVwXyZ012345
+
+7. Video cần kéo view – mỗi dòng 1 link:
+https://www.youtube.com/watch?v=AbCdEfGhIjK
+https://youtu.be/QwErTyUiOpA
+
+8. Bình luận ghim:
+🔥 Nghe truyện mới mỗi ngày tại kênh Kênh Cần Kéo:
+https://www.youtube.com/@KenhCanKeo
