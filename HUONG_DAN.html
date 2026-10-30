@@ -110,13 +110,13 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--c) 4%,var(--paper))}
   <section id="s1" style="--c:var(--c1)">
     <div class="band"><div class="n">1</div><div><h2>Cài đặt</h2><p>Làm 1 lần · Windows 10/11</p></div></div>
     <div class="body">
-      <ol>
-        <li>Cài <b>Python 3.10+</b> – <span class="hl">tích ô “Add Python to PATH”</span>.</li>
-        <li>Cài <b>Cốc Cốc</b> hoặc Chrome (không cần nếu bạn dùng profile GPM-Login).</li>
-        <li>Giải nén <code>tool_keo_kenh.zip</code> → nhấp đúp <span class="btn">Cai_dat.bat</span>.</li>
-        <li>Mở tool: nhấp đúp <span class="btn">Mo_Tool.bat</span>.</li>
-      </ol>
-      <div class="note ok"><strong>Cập nhật bản mới</strong>Giải nén ở đâu cũng được. Kênh, đăng nhập, nhật ký nằm cố định trong <code>KeoKenh_du_lieu</code> – không mất gì.</div>
+      <div class="tbl"><table>
+        <tr><th>Máy</th><th>Làm gì</th></tr>
+        <tr><td>Máy mới (chưa cài gì)</td><td>Giải nén <code>KeoKenh_Portable.zip</code> ra Desktop / ổ D → nhấp đúp <span class="btn">Mo_Tool.bat</span>. Lần đầu tool tự chuẩn bị 1–3 phút (cần mạng). <b>Không cần cài Python.</b></td></tr>
+        <tr><td>Máy đã cài Python</td><td>Giải nén <code>tool_keo_kenh.zip</code> → nhấp đúp <span class="btn">Mo_Tool.bat</span>.</td></tr>
+      </table></div>
+      <p>Cần có <b>Cốc Cốc</b> hoặc <b>Chrome</b> (không cần nếu dùng profile GPM-Login). Đừng để tool trong <i>Program Files</i>.</p>
+      <div class="note ok"><strong>Cập nhật bản mới – bấm 1 nút</strong>Góc trên bên phải tool có nút <span class="btn">Cập nhật</span>. Có bản mới → nút chuyển <b>màu cam “Có bản mới”</b> → bấm → <b>Có</b> → tool tự tải, tự cài, tự mở lại. Kênh, đăng nhập, Excel, mã API giữ nguyên; bản cũ tự sao lưu vào <code>KeoKenh_du_lieu\sao_luu</code>. Số bản đang dùng hiện ở góc dưới bên phải.</div>
     </div>
   </section>
 
@@ -125,7 +125,7 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--c) 4%,var(--paper))}
     <div class="body">
       <ol>
         <li>Bấm <span class="btn">Thêm kênh mới</span>, chọn <b>Cách kéo</b>.</li>
-        <li>Chọn trình duyệt: <b>profile GPM-Login</b> (bấm 1 dòng trong bảng, xem mục 4) hoặc để “Không dùng” = Cốc Cốc / Chrome riêng của tool.</li>
+        <li>Ô <b>Trình duyệt đăng nhập</b>: Cốc Cốc / Chrome (hồ sơ riêng hoặc ẩn danh) hoặc <b>GPM-Login</b> (xem mục 4). Khung nhỏ bên dưới cho biết đang dùng gì · kênh nào · đã sẵn sàng chưa.</li>
         <li>Bấm <b>Đăng nhập</b> → tool <span class="hl">tự điền tên + ID kênh</span>.</li>
         <li>Điền video / bình luận nếu muốn (để trống tool tự lo) → <span class="btn">Lưu</span>.</li>
       </ol>
@@ -173,8 +173,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--c) 4%,var(--paper))}
       <p class="key">A. GPM-Login trên chính máy đang dùng tool</p>
       <ol>
         <li>Mở GPM-Login.</li>
-        <li>Thông tin kênh → bảng <b>Profile GPM-Login</b> tự hiện danh sách (tên + ghi chú). Không thấy: bấm <span class="btn">Làm mới GPM-Login</span>.</li>
-        <li><span class="hl">Bấm 1 dòng</span> = chọn profile cho kênh (tự lưu). Cột “Đang dùng cho” cho biết profile đã gắn kênh nào.</li>
+        <li>Thông tin kênh → ô <b>Trình duyệt đăng nhập</b> chọn <b>GPM-Login</b>.</li>
+        <li>Bấm vào ô <b>Profile GPM-Login</b> / mũi tên <b>▾</b> → bảng profile (tên · ghi chú · đang dùng cho) hiện ra → <span class="hl">bấm 1 dòng</span> = chọn (tự lưu, bảng tự đóng). Danh sách trống: bấm <span class="btn">Làm mới GPM-Login</span>.</li>
         <li>Tool mở profile, <span class="hl">chỉ 1 trang “Chuyển đổi kênh”</span> rồi <b>dừng lại</b>. Kênh gợi ý (theo ghi chú GPM) có <b>khung xanh</b>.</li>
         <li><b>Bạn tự bấm chọn đúng kênh</b> trên cửa sổ GPM → bấm <span class="btn">Tiếp tục</span> trong tool → tool tự điền tên + ID kênh.</li>
       </ol>
@@ -292,8 +292,9 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--c) 4%,var(--paper))}
     <div class="band"><div class="n">10</div><div><h2>Thư mục &amp; file</h2><p>Biết file nào để làm gì</p></div></div>
     <div class="body">
       <div class="tree"><b>tool_keo_kenh\</b>
-  Mo_Tool.bat        nhấp đúp để mở tool
-  Cai_dat.bat        chạy 1 lần khi cài máy mới
+  Mo_Tool.bat        nhấp đúp để mở tool (lần đầu tự chuẩn bị thư viện)
+  Sua_loi_thu_vien.bat  cài lại thư viện khi tool báo lỗi thư viện
+  python\            (chỉ bản mang đi) Python có sẵn – không cần cài
   Cau_noi_GPM.bat    chạy trên máy có GPM-Login khi tool ở máy khác
   HUONG_DAN.html     trang hướng dẫn này
   bieu_mau\          biểu mẫu Notepad điền thông tin kênh
@@ -317,7 +318,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--c) 4%,var(--paper))}
         <tr><td>Trình duyệt không hiện</td><td>Tắt hết Cốc Cốc của tool rồi bấm lại</td></tr>
         <tr><td>“File Excel đang mở”</td><td>Đóng file trong Excel / WPS rồi bấm lại</td></tr>
         <tr><td>Dòng đỏ lặp lại</td><td>Kết quả → Tạo gói chẩn đoán, gửi file zip</td></tr>
-        <tr><td>Không mở được tool</td><td>Chạy lại Cai_dat.bat</td></tr>
+        <tr><td>Không mở được tool</td><td>Nhấp đúp Sua_loi_thu_vien.bat (cần mạng) rồi mở lại</td></tr>
+        <tr><td>Nút Cập nhật báo lỗi</td><td>Kiểm tra mạng rồi bấm lại – bản đang dùng không bị ảnh hưởng</td></tr>
       </table></div>
       <div class="note bad"><strong>Bảo mật</strong>Không gửi mật khẩu Google, thư mục <code>profiles</code> hay mã kết nối GPM cho người lạ.</div>
     </div>
