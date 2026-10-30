@@ -56,11 +56,16 @@ def _key(v):
 
 def check(timeout=15):
     """(có bản mới?, bản đang dùng, thông tin bản trên mạng). Lỗi mạng -> UpdateError."""
-    url = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/he_thong/version.json?t={int(time.time())}"
-    try:
-        remote = json.loads(_get(url, timeout).decode("utf-8"))
-    except Exception as e:
-        raise UpdateError(f"Không đọc được thông tin bản mới trên GitHub ({e.__class__.__name__}) – "
+    remote, err = None, None
+    for url in (f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/he_thong/version.json?t={int(time.time())}",
+                f"https://github.com/{REPO}/raw/{BRANCH}/he_thong/version.json"):
+        try:
+            remote = json.loads(_get(url, timeout).decode("utf-8"))
+            break
+        except Exception as e:
+            err = e
+    if remote is None:
+        raise UpdateError(f"Không đọc được thông tin bản mới trên GitHub ({err.__class__.__name__}) – "
                           f"kiểm tra mạng Internet rồi thử lại.")
     loc = local_version()
     return _key(remote.get("version")) > _key(loc.get("version")), loc, remote
